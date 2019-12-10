@@ -46,6 +46,8 @@ class SignupScreen extends FormBuilder {
 
         return (
             <form onSubmit={this.onSubmit}>
+                <h1>Signup</h1>
+
                 <TextField
                     label={'Username'}
                     name={'username'}

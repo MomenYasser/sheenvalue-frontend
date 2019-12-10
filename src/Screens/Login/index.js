@@ -42,6 +42,8 @@ class LoginScreen extends FormBuilder {
 
         return (
             <form onSubmit={this.onSubmit}>
+                <h1>Login</h1>
+                
                 <TextField
                     label={'Email'}
                     name={'email'}
@@ -51,7 +53,6 @@ class LoginScreen extends FormBuilder {
                     label={'Password'}
                     name={'password'}
                 />
-
                 <button>Submit</button>
             </form>
         )
