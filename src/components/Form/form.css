@@ -1,0 +1,9 @@
+.submitButton{
+    background-color: #297ca0;
+    margin-left: 10%;
+    height: 30px;
+    width:65px;
+    border-radius: 6px;
+    color:white;
+    font-size: medium;
+}

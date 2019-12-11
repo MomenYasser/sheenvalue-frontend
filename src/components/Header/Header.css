@@ -1,0 +1,26 @@
+ul li{
+    list-style: none;
+}
+a{
+    margin-top: 3px;
+    color:#6c7b95;
+    text-decoration: none;
+}
+a:hover{
+    padding: 10px;
+    color:darkblue;
+    background-color: #b2dffb;
+}
+ul{
+    align-items: center;
+    height: 6vh;
+    display: flex;
+    justify-content: space-around;
+
+}
+.navBar{
+    height: 8%;
+    margin-top: -16px;
+    top: 0;
+    background-color: #ffc55c;
+}
