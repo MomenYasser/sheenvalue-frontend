@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import "./App.css";
 import Login from "./Screens/Login/Login";
 import Header from "./components/Header/Header";
@@ -7,13 +7,10 @@ import Router from "./components/Router"
 import Home from "./Screens/Home";
 
 function App() {
-  const [Loged, setLoged] = useState(localStorage.getItem("Token")?true:false);
   
   return (
     <div className="App">
       <Header
-        Loged={Loged}
-        setLoged={setLoged}
         childrens={[
           { name: "sing in",rout:'/login'},
           { name: "sing up",rout:'/signup'}
@@ -23,8 +20,9 @@ function App() {
         routes={[
           {
             path: '/login',
-            component: <Login setLoged={setLoged} />,
+            component: <Login />,
             default: true,
+
           },
           {
             path: '/signup',

@@ -1,5 +1,6 @@
 import React from 'react';
 import Events from '../../Services/Events';
+import { connect } from "react-redux";
 
 const events = new Events();
 
@@ -26,23 +27,29 @@ class Router extends React.Component {
         const defaultRoute = routes.find(route => route.default);
 
         if (activeRoute) {
-            if(
-                (activeRoute.validation &&
-                localStorage.getItem("Token") ) || !activeRoute.Novalidation
-                ) return this.setState({ activeRoute: activeRoute.component });
+            if (
+                (activeRoute.validation && this.props.Loged)
+                || !activeRoute.validation) {
+
+                return this.setState({ activeRoute: activeRoute.component });
+                }else window.location.replace(defaultRoute.path);
         } else {
             // Handling default route
             window.location.replace(defaultRoute.path);
-        }        
+        }
     }
 
-    render () {
+    render() {
         return (
             <div>
                 {this.state.activeRoute}
             </div>
         )
-    }  
+    }
 }
-
-export default Router;
+const mapStateToProps = state => {
+    return {
+        Loged: state.Register.LOGED.loged
+    };
+};
+export default connect(mapStateToProps, null)(Router);

@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import "./Header.css";
 import Router from "../Router"
+import { connect } from "react-redux";
+import { logedout } from "../../Redux/Actions/Register";
 
 class Header extends Component {
   handelClic = path => e => {
     e.preventDefault();
-
     Router.go(path);
   };
   logout=(e)=>{
     e.preventDefault();
-    localStorage.removeItem("Token");
-    this.props.setLoged(false);
+    this.props.logedout()
     Router.go("/login");
   }
 
@@ -19,7 +19,17 @@ class Header extends Component {
     return (
       <div className="headerDiv">
         <ul>
-          {this.props.childrens.map(child => {
+        {
+          this.props.loged ?
+           <li>
+                <a className="linkButton" 
+                    href="#" 
+                    onClick={this.logout}>
+                  Log out
+                </a>
+          </li> 
+          :
+          this.props.childrens.map(child => {
             return (
               <li key={child.name}>
                 <a
@@ -29,21 +39,21 @@ class Header extends Component {
                 >{child.name}</a>
               </li>
             );
-          })}
-          {
-          this.props.Loged ?
-           <li>
-                <a className="linkButton" 
-                    href="#" 
-                    onClick={this.logout}>
-                  Log out
-                </a>
-          </li> 
-          :null}
+          })
+        }
         </ul>
       </div>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    loged: state.Register.LOGED.loged
+  };
+};
 
-export default Header;
+const mapDispatchToProprs = {
+  logedout: logedout,
+};
+
+export default connect(mapStateToProps, mapDispatchToProprs)(Header);

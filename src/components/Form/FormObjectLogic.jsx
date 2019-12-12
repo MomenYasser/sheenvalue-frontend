@@ -14,8 +14,9 @@ class Logic extends Component {
     });
   };
   async getTokens(api,data) {
-    const response = await fetch(api,data);
-    return response;
+    //const response = await fetch(api,data);
+    // return response;
+    return("1234")
   }
   commonFieldProps({ name, ...rest }) {
     const { form } = this.state;   

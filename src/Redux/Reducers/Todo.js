@@ -1,4 +1,4 @@
-import { ADD_TODO, REMOVE_TODO } from '../Actions/todo';
+import { ADD_TODO, REMOVE_TODO,SEARCH_TODO } from '../Actions/todo';
 
 const initialState = {
   todos: [{ 
@@ -6,7 +6,7 @@ const initialState = {
             task_description:"",
             id:0,
             done:false,
-          }]
+          }],
 };
 function rootReducer(state = initialState, action) {
   switch(action.type) {
@@ -27,6 +27,11 @@ function rootReducer(state = initialState, action) {
     case REMOVE_TODO:
       return {
         todos: state.todos.filter((todo) => todo.id !== action.id)
+      };
+      case SEARCH_TODO:
+      return {
+        ...state,
+        ResultTodos: state.todos.filter((todo) => todo.task_name.includes(action.key))
       };
 
     default:

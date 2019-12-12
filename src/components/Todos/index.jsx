@@ -29,7 +29,7 @@ class Todos extends Component {
 }
 const mapStateToProps = state => {
   return {
-    todos: state.todos
+    todos: state.todo.todos
   };
 };
 

@@ -1,35 +1,36 @@
 import React from "react";
 import Logic from "../../components/Form/FormObjectLogic";
 import { minLength, isEmail, isRequired } from "../../Services/Validators";
-import Router from "../../components/Router"
-
+import Router from "../../components/Router";
+import { connect } from "react-redux";
+import { logedin } from "../../Redux/Actions/Register";
 
 class Login extends Logic {
   constructor(props) {
     super(props);
     this.state = {
-    form: {
+      form: {
         email: {
           value: "",
           validators: [isEmail(), isRequired()]
         },
         password: {
           value: "",
-          validators: [minLength(5), isRequired()],
+          validators: [minLength(5), isRequired()]
         }
       }
     };
     this.initFields();
-
-  };
+  }
 
   submit = e => {
     e.preventDefault();
     const valid = this.validate();
     if (valid) {
-      localStorage.setItem("Token", "12345");
-      this.props.setLoged(true);
-      Router.go("/home");
+      const token = this.getTokens().then(()=>{
+        this.props.logedin(token)
+        Router.go("/home")
+      }) 
     }
   };
 
@@ -50,4 +51,14 @@ class Login extends Logic {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    LOGED: state.Register.LOGED
+  };
+};
+
+const mapDispatchToProprs = {
+  logedin: logedin,
+};
+
+export default connect(mapStateToProps, mapDispatchToProprs)(Login);
