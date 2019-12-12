@@ -1,24 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from "react";
+import "./App.css";
+import Login from "./Screens/Login/Login";
+import Header from "./components/Header/Header";
+import SingUp from "./Screens/SingUp/SingUp";
+import Router from "./components/Router"
+import Home from "./Screens/Home";
 
 function App() {
+  const [Loged, setLoged] = useState(localStorage.getItem("Token")?true:false);
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header
+        Loged={Loged}
+        setLoged={setLoged}
+        childrens={[
+          { name: "sing in",rout:'/login'},
+          { name: "sing up",rout:'/signup'}
+        ]}
+      ></Header>
+      <Router
+        routes={[
+          {
+            path: '/login',
+            component: <Login setLoged={setLoged} />,
+            default: true,
+          },
+          {
+            path: '/signup',
+            component: <SingUp />,
+          },
+          {
+            path:'/home',
+            component:<Home/>,
+            validation:true
+          }
+        ]}
+      />
+      <div id="component"></div>
     </div>
   );
 }
