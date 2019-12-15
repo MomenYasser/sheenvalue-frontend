@@ -1,6 +1,7 @@
 export const ADD_TODO = 'ADD_TODO';
 export const REMOVE_TODO = 'REMOVE_TODO';
 export const SEARCH_TODO = 'SEARCH_TODO';
+export const VALUE_CHANGE = 'VALUE_CHANGE'
 
              
 
@@ -17,4 +18,8 @@ export function removeTodo(id) {
 }
 export function SearchTodo(key) {
   return { type: REMOVE_TODO, key:key };
+}
+export const valueChange = (index,value) => {
+  return{type:VALUE_CHANGE, index:index, value:value}
+  
 }

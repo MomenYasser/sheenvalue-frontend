@@ -1,9 +1,12 @@
-import React from 'react'
+import React,{useState} from 'react'
 
-export default function Search() {
+const Search = () => {
+    const [key, setKey] = useState("")
     return (
         <div>
-            
+         <input value={key}></input>
         </div>
-    )
+    );
 }
+
+export default Search;

@@ -19,7 +19,6 @@ class AddTodo extends logic {
       };
       submit=(e)=>{
          e.preventDefault();
-         console.log(this.state.form)
          const { name,description } = this.state.form
          this.props.addHandelr(name.value,description.value)
           
