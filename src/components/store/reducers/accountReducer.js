@@ -3,7 +3,7 @@ const initialState = {
   token:localStorage.getItem("token"),
   isLoggedIn: false
 };
-const accountReducer = (state = initialState, action) => {
+const accountReducer =  (state = initialState, action) => { // can I set async here for localsotrage????
   switch (action.type) {
     case Types.LOGGEDIN:
       let logged = action.payload
@@ -11,7 +11,7 @@ const accountReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: action.payload.loggedIn,
-        token:localStorage.setItem("token","token here")
+        token: localStorage.setItem("token","token here")
       };
     case Types.LOGGOUT:
       return {
