@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Input from "./Input";
 import "./form.css";
 import { reduce, forEach } from "lodash";
 import TextField from './Fields/Text'
@@ -13,49 +12,35 @@ class Form extends Component {
     console.log(this.state)
 
   };
-//   initForm = form => {
-//     this.setState({ ...this.state, form });
-//   };
-  get isFormValid () {
-    // const form = {};
-    // for (const key in this.state.form) {
-    //   if (this.state.form.hasOwnProperty(key)) {
-    //     let validators = [];
-    //     this.state.form[key].validators.forEach(validator => {
-    //       validators.push(validator(this.state.form[key].value));
-    //     });
-    //     form[key] = {
-    //       ...this.state.form[key],
-    //       isValid:
-    //         validators.find(item => item === false) === undefined ? true : false
-    //     };
-    //   }
-    // }
-    // this.setState({ form, isSubmitted: true });
+  
+  componentDidMount() {
+    this.validateForm()
+  }
 
+  get isFormValid () {
+    this.validateForm()
     let isValid = true;
     const {form} = this.state;
+    console.log(form)
     for (const key in form) {
         if (form.hasOwnProperty(key)) {
             const field = form[key];
             if(field.errors.length>0){
-                isValid = false;
+               isValid = false
             }
         }
+        
     }
     return isValid;
   };
   validateForm = () =>{
     const { form } = this.state;
-    console.log(form)
     const validatedForm = reduce(form, (result, field, key) => {
         const errors = [];
-        console.log(field)
         field.validators.forEach(validator => {
             const item = validator(field.value);
 
             if (!item.valid) {
-                console.log('not valid')
                 errors.push(item.message);
             }
         })
@@ -64,12 +49,10 @@ class Form extends Component {
 
         return result;
     }, {});
-
     this.setState({ form: validatedForm });
   }
   initFormState = form => {
     const structure = reduce( form, (result, field, key) => {
-        console.log(result,key,field)
         const fieldItem = {
           ...field,
           errors: []
@@ -79,7 +62,6 @@ class Form extends Component {
         },
       {}
     );
-    console.log(structure)
     return structure;
   };
   initFields = () => {
@@ -133,24 +115,24 @@ class Form extends Component {
   }
   showFormErrors = ()=> this.setState({showFormErrors:true})
 
-  renderInput = (name, label, onchange, type = "text") => {
-    const { form } = this.state || true;
-    // const isValid = form !== undefined && form[name].isValid;
+  // renderInput = (name, label, onchange, type = "text") => {
+  //   const { form } = this.state || true;
+  //   // const isValid = form !== undefined && form[name].isValid;
 
-    return (
-      <div>
-        <Input
-          change={onchange}
-          name={name}
-          type={type}
-          label={label}
-        //   isValid={isValid}
-        />
-      </div>
-    );
-  };
-  renderButton = title => {
-    return <button className="submitButton">{title}</button>;
-  };
+  //   return (
+  //     <div>
+  //       <Input
+  //         change={onchange}
+  //         name={name}
+  //         type={type}
+  //         label={label}
+  //       //   isValid={isValid}
+  //       />
+  //     </div>
+  //   );
+  // };
+  // renderButton = title => {
+  //   return <button className="submitButton">{title}</button>;
+  // };
 }
 export default Form;

@@ -7,11 +7,9 @@ const TextField = ({
     onChange,
     showFormErrors
 }) =>{
-    console.log(value,onChange)
     return (
         <>
         <p>{label}</p>
-
         <input
             type={'text'}
             name={name}

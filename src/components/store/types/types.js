@@ -1,0 +1,9 @@
+export const GET_TODOS = 'GET TODOS'
+export const FILTER_TODOS = "FILTER TODOS"
+export const ADD_TODO = "ADD TODO"
+export const SET_TODOS = "SET Todos"
+export const DELETE_TODO = "delete todo"
+export const SEARCH_TODO = "SEARCH TODO"
+export const LOGGEDIN = "Logged In"
+export const ENTERRED = "Entered In"
+export const LOGGOUT = "Log Out"

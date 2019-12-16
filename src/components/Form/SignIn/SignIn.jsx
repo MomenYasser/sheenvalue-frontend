@@ -1,6 +1,9 @@
 import React from 'react'
 import Form from '../Form'
 import {isEmail,isRequired,minLength} from '../../Services/Validators'
+import Router from '../../Router/Router'
+import {loggedIn} from '../../store/actions/accountAction'
+import {connect} from 'react-redux'
 class SignIn extends Form{
   constructor(props) {
       super(props)
@@ -12,18 +15,18 @@ class SignIn extends Form{
             },
             password: {
                 value: '',
-                validators: [ isRequired(), minLength(10) ],
+                validators: [ isRequired(), minLength(5) ],
             },
         },
     })
-      console.log(this.state.form)
   }
   onSubmit = e => {
     e.preventDefault();
 
     if (this.isFormValid) {
         // Do something
-        console.log(this.formValues);
+        Router.go('/todo-list')
+        this.props.loggedIn()
     } else {
        this.showFormErrors(); 
  
@@ -57,4 +60,9 @@ class SignIn extends Form{
     </form>
     }
 }
-export default SignIn
+const mapStateToProps = state =>{
+    return{
+      isLoggedIn: state.account.isLoggedIn
+    }
+  }
+export default connect(mapStateToProps,{loggedIn})( SignIn )

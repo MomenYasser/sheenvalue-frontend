@@ -6,8 +6,8 @@ import SignIn from './components/Form/SignIn/SignIn'
 import Header from './components/Header/Header';
 import SignUp from './components/Form/SignUp/SignUp';
 import Router from './components/Router/Router';
+import TodoList from './components/TodoList/TodoList';
 function App() {
-  console.log(this)
   return (
     <div>
       <Header/>
@@ -21,6 +21,10 @@ function App() {
                     {
                       path:'/signup',
                       component:<SignUp/>
+                    },
+                    {
+                      path:'/todo-list',
+                      component:<TodoList/>
                     }
               ]}/>
     </div>
