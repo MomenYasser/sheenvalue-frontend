@@ -2,25 +2,24 @@ import React from 'react';
 
 import {
     isRequired,
-    isEmail,
     minLength,
 } from '../../Services/Validators';
 
 import FormBuilder from '../../Components/Form/Builder';
 
-class LoginScreen extends FormBuilder {
+class Addtask extends FormBuilder {
     constructor(props) {
         super(props);
 
         this.initState({
             form: {
-                email: {
+                task_name: {
                     value: '',
-                    validators: [ isRequired(), isEmail() ],
+                    validators: [ isRequired(), minLength(3) ],
                 },
-                password: {
+                task_description: {
                     value: '',
-                    validators: [ isRequired(), minLength(10) ],
+                    validators: [ isRequired(), minLength(3) ],
                 },
             },
         });
@@ -30,9 +29,7 @@ class LoginScreen extends FormBuilder {
         e.preventDefault();
 
         if (this.isFormValid) {
-            // Do something
-            this.login();
-            console.log(this.formValues);
+            this.props.onAddTask(this.formValues);
         } else {
            this.showFormErrors(); 
         }
@@ -42,22 +39,23 @@ class LoginScreen extends FormBuilder {
         const { TextField } = this;        
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <h1>Login</h1>
+            <form onSubmit={this.onSubmit} style={{textAlign:'center'}}>
+                <h1>Add Task</h1>
                 
                 <TextField
-                    label={'Email'}
-                    name={'email'}
+                    label={'Task Name'}
+                    name={'task_name'}
                 />
 
                 <TextField
-                    label={'Password'}
-                    name={'password'}
+                    label={'Task Description'}
+                    name={'task_description'}
                 />
+                <br/>
                 <button>Submit</button>
             </form>
         )
     }
 }
 
-export default LoginScreen;
+export default Addtask;

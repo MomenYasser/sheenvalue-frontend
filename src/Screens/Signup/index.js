@@ -4,6 +4,7 @@ import {
     isRequired,
     isEmail,
     minLength,
+    isEqual
 } from '../../Services/Validators';
 
 import FormBuilder from '../../Components/Form/Builder';
@@ -16,16 +17,20 @@ class SignupScreen extends FormBuilder {
             form: {
                 username: {
                     value: '',
-                    validators: [ isRequired('Koko'), minLength(3) ],
+                    validators: [ isRequired(), minLength(3) ],
                 },
                 password: {
                     value: '',
                     validators: [ isRequired(), minLength(10) ],
                 },
-                gender: {
+                confirmPassword: {
                     value: '',
-                    validators: [ isRequired(), minLength(10) ],
+                    validators: [ isRequired() ,isEqual()],
                 },
+                email: {
+                    value: '',
+                    validators: [ isRequired(), isEmail() ],
+                }
             },
         });
     }
@@ -33,8 +38,9 @@ class SignupScreen extends FormBuilder {
     onSubmit = e => {
         e.preventDefault();
 
-        if (this.isFormValid) {
+        if (this.isFormValid ) {
             // Do something
+           
             console.log(this.formValues);
         } else {
            this.showFormErrors(); 
@@ -52,6 +58,11 @@ class SignupScreen extends FormBuilder {
                     label={'Username'}
                     name={'username'}
                 />
+                
+                <TextField
+                    label={'Email'}
+                    name={'email'}
+                />
 
                 <TextField
                     label={'Password'}
@@ -59,9 +70,10 @@ class SignupScreen extends FormBuilder {
                 />
 
                 <TextField
-                    label={'Gender'}
-                    name={'gender'}
+                    label={'ConfirmPassword'}
+                    name={'confirmPassword'}
                 />
+                
 
                 <button>Submit</button>
             </form>

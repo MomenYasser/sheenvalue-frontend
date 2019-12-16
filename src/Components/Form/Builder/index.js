@@ -5,8 +5,10 @@ import forEach from 'lodash/forEach';
 
 
 import TextField from '../Fields/Text';
+import Router from '../../Router';
 
 class FormBuilder extends React.Component {
+    
     initState(data) {   
         this.state = {
             showFormErrors: false,
@@ -34,12 +36,18 @@ class FormBuilder extends React.Component {
 
     validateForm = () => {
         const { form } = this.state;
+        let password  = '' ;
+        if ( form.hasOwnProperty("password"))
+         password = form["password"].value;
 
         const validatedForm = reduce(form, (result, field, key) => {
             const errors = [];
 
             field.validators.forEach(validator => {
-                const item = validator(field.value);
+                let item ;
+
+                if ( key ==="confirmPassword") item = validator(field.value,password);
+                else item = validator(field.value);
 
                 if (!item.valid) {
                     errors.push(item.message);
@@ -50,6 +58,8 @@ class FormBuilder extends React.Component {
 
             return result;
         }, {});
+
+        
 
         this.setState({ form: validatedForm });
     }
@@ -70,6 +80,7 @@ class FormBuilder extends React.Component {
         return test;
     }
 
+   
     get isFormValid() {
         let isValid = true;
 
@@ -128,6 +139,15 @@ class FormBuilder extends React.Component {
                 />
             )
         })
+    }
+
+    login() {
+        const { email , password } = this.formValues ;
+        /**
+         * 
+         * 
+         */
+        Router.go('/app');
     }
 
 }
