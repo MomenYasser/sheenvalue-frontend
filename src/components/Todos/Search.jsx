@@ -4,7 +4,10 @@ const Search = () => {
     const [key, setKey] = useState("")
     return (
         <div>
-         <input value={key}></input>
+         <input value={key} onChange={(e)=>{
+             e.preventDefault();
+             setKey(e.target.value);
+        }}></input>
         </div>
     );
 }

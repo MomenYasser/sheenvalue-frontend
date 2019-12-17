@@ -30,7 +30,7 @@ class Login extends Logic {
       const token = this.getTokens().then(()=>{
         this.props.logedin(token)
         Router.go("/home")
-      }) 
+      });
     }
   };
 

@@ -5,12 +5,14 @@ import Header from "./components/Header/Header";
 import SingUp from "./Screens/SingUp/SingUp";
 import Router from "./components/Router"
 import Home from "./Screens/Home";
+import MobexImp from "./Mobex/MobexImp";
 
 function App() {
   
   return (
     <div className="App">
-      <Header
+      <MobexImp></MobexImp>
+      {/* <Header
         childrens={[
           { name: "sing in",rout:'/login'},
           { name: "sing up",rout:'/signup'}
@@ -35,7 +37,7 @@ function App() {
           }
         ]}
       />
-      <div id="component"></div>
+      <div id="component"></div> */}
     </div>
   );
 }
