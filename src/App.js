@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import SignUp from './components/Form/SignUp/SignUp';
 import Router from './components/Router/Router';
 import TodoList from './components/TodoList/TodoList';
+import Counter from './components/Counter/Counter';
 function App() {
   return (
     <div>
@@ -25,7 +26,11 @@ function App() {
                     {
                       path:'/todo-list',
                       component:<TodoList/>
-                    }
+                    },
+                    {
+                      path:'/counter',
+                      component:<Counter/>
+                    },
               ]}/>
     </div>
     

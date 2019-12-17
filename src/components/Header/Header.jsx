@@ -20,7 +20,8 @@ onLogout = () =>{
         <ul>
           {!this.props.isLoggedIn ? 
             (<><li><a onClick={this.navigateTo('/login')}>Sign In</a></li>
-            <li><a onClick={this.navigateTo('/signup')}>Sign Up</a></li></>):
+            <li><a onClick={this.navigateTo('/signup')}>Sign Up</a></li>
+            <li><a onClick={this.navigateTo('/counter')}>Counter</a></li></>):
             <li><a onClick={this.onLogout}>Log Out</a></li>
            }
           
