@@ -2,12 +2,11 @@ import React from 'react';
 
 import {
     isRequired,
-    isEmail,
     minLength,
 } from '../../Services/Validators';
 
 import FormBuilder from '../../Components/Form/Builder';
-
+import asEntity from '../../Hocs/asEntity';
 class SignupScreen extends FormBuilder {
     constructor(props) {
         super(props);
@@ -35,7 +34,7 @@ class SignupScreen extends FormBuilder {
 
         if (this.isFormValid) {
             // Do something
-            console.log(this.formValues);
+            this.props.$store.post(this.formValues);
         } else {
            this.showFormErrors(); 
         }
@@ -69,4 +68,4 @@ class SignupScreen extends FormBuilder {
     }
 }
 
-export default SignupScreen;
+export default asEntity({ storeKey: "Signup" })(SignupScreen);

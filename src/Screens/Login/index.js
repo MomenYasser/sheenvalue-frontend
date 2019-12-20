@@ -7,7 +7,7 @@ import {
 } from '../../Services/Validators';
 
 import FormBuilder from '../../Components/Form/Builder';
-
+import asEntity from '../../Hocs/asEntity';
 class LoginScreen extends FormBuilder {
     constructor(props) {
         super(props);
@@ -30,15 +30,18 @@ class LoginScreen extends FormBuilder {
         e.preventDefault();
 
         if (this.isFormValid) {
-            // Do something
-            console.log(this.formValues);
+            this.props.$store.post(this.formValues);
         } else {
            this.showFormErrors(); 
         }
     }
 
+    entityDidPost(data) {
+        console.log('entityDidPost', data);
+    }
+
     render() {
-        const { TextField } = this;        
+        const { TextField } = this;
 
         return (
             <form onSubmit={this.onSubmit}>
@@ -59,4 +62,4 @@ class LoginScreen extends FormBuilder {
     }
 }
 
-export default LoginScreen;
+export default asEntity({ storeKey: 'Login' })(LoginScreen);
