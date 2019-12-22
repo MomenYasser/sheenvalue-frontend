@@ -9,26 +9,26 @@ import withStore from './HOCs/WithStore'
 const storeWrapper = ( Component , props ) => withStore(Component , props ) // HOC
 
 function App() {
- const WithStoreAppScreen = storeWrapper(AppScreen);
+ //const WithStoreAppScreen = storeWrapper(AppScreen);
   return (
     <div className="App">
-      {/* <Header /> */}
+       <Header /> 
       
       <Router
         routes={[
           {
             path: '/login',
             component: <Login />,
-            
-          },
+            default: true,
+          },  
           {
             path: '/signup',
             component: <Signup />,
           },
           {
             path: '/app',
-            component: <WithStoreAppScreen/>,
-            default: true,
+            component: <AppScreen/>,
+            
           }
         ]}
       />
@@ -36,4 +36,4 @@ function App() {
   );
 }
 
-export default App;
+export default storeWrapper( App);

@@ -1,8 +1,5 @@
-import * as types from '../Actions/Types';
+import { reducer as Entity } from './Entity';
 
-export const modify = ( tasks ) => {
- return {
-     type:types.MODIFY,
-     tasks
- }
-}
+export default {
+ Entity,
+};

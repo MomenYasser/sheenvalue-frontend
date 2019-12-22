@@ -2,8 +2,7 @@ import React from 'react';
 import DropMenu from '../../Components/TodoItem/DropMenu';
 import ButtonTimer from '../../Components/TodoItem/ButtonTimer';
 import TodoHandler from '../../Components/TodoItem/TodoHandler';
-import { connect } from 'react-redux';
-import * as actions from '../../Redux/Actions';
+import asEntity from '../../HOCs/asEntity';
 
 
 class TodoItem extends TodoHandler {
@@ -34,14 +33,4 @@ const style = {
     borderBottom: '1px #ccc dotted',
 }
 
-const mapStateToProps = state =>{
-    return {
-        tasks : state.root.tasks
-   };
-  } 
-
-  const mapDispatchToProps = {
-    modify : actions.modify
-  };
-  
-export default connect (mapStateToProps,mapDispatchToProps)  (TodoItem);
+export default asEntity() (TodoItem);

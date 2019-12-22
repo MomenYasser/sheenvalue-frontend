@@ -7,6 +7,7 @@ import {
 } from '../../Services/Validators';
 
 import FormBuilder from '../../Components/Form/Builder';
+import asEntity from '../../HOCs/asEntity';
 
 class LoginScreen extends FormBuilder {
     constructor(props) {
@@ -32,7 +33,7 @@ class LoginScreen extends FormBuilder {
         if (this.isFormValid) {
             // Do something
             this.login();
-            console.log(this.formValues);
+            
         } else {
            this.showFormErrors(); 
         }
@@ -60,4 +61,4 @@ class LoginScreen extends FormBuilder {
     }
 }
 
-export default LoginScreen;
+export default asEntity({key:"login"}) (LoginScreen);

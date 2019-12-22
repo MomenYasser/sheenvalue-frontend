@@ -8,6 +8,7 @@ import {
 } from '../../Services/Validators';
 
 import FormBuilder from '../../Components/Form/Builder';
+import asEntity from '../../HOCs/asEntity';
 
 class SignupScreen extends FormBuilder {
     constructor(props) {
@@ -81,4 +82,4 @@ class SignupScreen extends FormBuilder {
     }
 }
 
-export default SignupScreen;
+export default asEntity ({key:"signup"}) (SignupScreen) ;

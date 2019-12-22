@@ -7,11 +7,11 @@ class TodoList extends React.Component {
        super(props);
    }
     render() {
-        const { tasks } = this.props;
+       
        // console.log(tasks);
         return (
             <div>             
-                {tasks.map(task => (  <TodoItem key={task.id} task={task}/> ))}
+                {[].map(task => (  <TodoItem key={task.id} task={task}/> ))}
             </div>
         );
     }

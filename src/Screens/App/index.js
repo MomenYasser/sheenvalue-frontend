@@ -4,7 +4,7 @@ import Addtask from './AddTask';
 import TodoList from './TodoList';
 import TodoHandler from '../../Components/TodoItem/TodoHandler';
 import { connect } from 'react-redux';
-import * as actions from '../../Redux/Actions';
+import asEntity from '../../HOCs/asEntity';
 
 class AppScreen extends TodoHandler {
     
@@ -26,14 +26,5 @@ class AppScreen extends TodoHandler {
         )
     }
 }
-const mapStateToProps = state =>{
-    return {
-        tasks : state.root.tasks
-   };
-  } 
 
-  const mapDispatchToProps = {
-    modify : actions.modify
-  };
-  
-export default connect (mapStateToProps , mapDispatchToProps)  (AppScreen);
+export default asEntity() (AppScreen);
