@@ -5,8 +5,8 @@ import get from 'lodash/get';
 import EntityActions from '../Redux/Actions/Entity';
 
 export default function(configs = {}) {
-  const { storeKey } = configs;
-
+  const { storeKey, keepEntity } = configs;
+  
   return Component => {
     class Entity extends React.Component {
       constructor(props) {
@@ -50,16 +50,54 @@ export default function(configs = {}) {
         this.props.delete(storeKey, ...rest)        
       }
 
-      componentDidUpdate() {
-      const {
-        didPost,
-        postData,
-      } = this.store;
-
-      if(didPost) {
-        this.component.current.entityDidPost(postData);
+      resetProps = (...rest) => {
+        this.props.resetProps(storeKey, ...rest)
       }
-    }
+
+      componentDidUpdate() {
+        const {
+          didGet,
+          getData,
+          didPost,
+          postData,
+          didPut,
+          putData,
+          didDelete,
+          deleteData,
+          catchPost,
+        } = this.store;
+
+        if(didPost) {
+          this.resetProps(['didPost', 'postData']);
+          this.component.current.entityDidPost(postData);
+        }
+
+        if(catchPost) {
+          this.resetProps(['catchPost', 'postData']);
+          this.component.current.entityDidCatch('post', postData);
+        }
+
+        if(didGet) {
+          this.resetProps(['didGet', 'getData']);
+          this.component.current.entityDidGet(getData);
+        } 
+
+        if(didPut) {
+          this.resetProps(['didPut', 'putData']);
+          this.component.current.entityDidPut(putData);
+        } 
+
+        if(didDelete) {
+          this.resetProps(['didDelete', 'deleteData']);
+          this.component.current.entityDidDelete(deleteData);
+        } 
+      }
+
+      componentWillUnmount() {
+        if (!keepEntity) {
+          this.props.removeEntity(storeKey);
+        }
+      }
 
       render() {
         return (
@@ -79,6 +117,8 @@ export default function(configs = {}) {
       get: (...rest) => dispatch(EntityActions.get(...rest)),
       put: (...rest) => dispatch(EntityActions.put(...rest)),
       delete: (...rest) => dispatch(EntityActions.delete(...rest)),
+      resetProps: (...rest) => dispatch(EntityActions.resetProps(...rest)),
+      removeEntity: (...rest) => dispatch(EntityActions.removeEntity(...rest)),
     });
 
     return connect(mapStateToProps, mapDispatchToProps)(Entity);

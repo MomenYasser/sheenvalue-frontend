@@ -1,5 +1,6 @@
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
+import reduce from "lodash/reduce";
 
 /* ------------- Types and Action Creators ------------- */
 
@@ -20,6 +21,9 @@ const { Types, Creators } = createActions({
 	catchPost: ['key', 'data'],
 	catchPut: ['key', 'data'],
 	catchDelete: ['key', 'data'],
+
+	resetProps: ['key', 'props'],
+	removeEntity: ['key'],
 }, {
 	prefix: "Entity/",
 });
@@ -171,6 +175,7 @@ export const catchPost = (state, {key, data}) =>
 			...state.byKey,
 			[key]: {
 				...state.byKey[key],
+				catchPost: true,
 				loading: false,
 				postData: data,
 			},
@@ -201,6 +206,34 @@ export const catchDelete = (state, {key, data}) =>
 		},
 	});
 
+export const resetProps = (state, {key, props}) =>
+	state.merge({
+		byKey: {
+			...state.byKey,
+			[key]: {
+				...state.byKey[key],
+				...reduce(props, (result, value) => {
+					result[value] = ENTITY_INITIAL_STATE[value];
+
+					return result;
+				}, {}),
+			},
+		},
+	});
+
+export const removeEntity = (state, {key}) =>
+	state.merge({
+		byKey: {
+			...reduce(state.byKey, (result, entity, name) => {
+				if (name !== key) {
+					result[name] = entity;
+				}
+				
+				return result;
+			}, {}),
+		},
+	});
+
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -221,4 +254,7 @@ export const reducer = createReducer(INITIAL_STATE, {
 	[Types.CATCH_GET]: catchGet,
 	[Types.CATCH_PUT]: catchPut,
 	[Types.CATCH_DELETE]: catchDelete,
+
+	[Types.RESET_PROPS]: resetProps,
+	[Types.REMOVE_ENTITY]: removeEntity,
 });

@@ -40,6 +40,10 @@ class LoginScreen extends FormBuilder {
         console.log('entityDidPost', data);
     }
 
+    entityDidCatch(method, { errors }) {
+        alert("Somethin went wrong");
+    }
+
     render() {
         const { TextField } = this;
 
