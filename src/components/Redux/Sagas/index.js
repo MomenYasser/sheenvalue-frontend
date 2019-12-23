@@ -6,6 +6,7 @@ import entitySagas from './Entity'
 export default function* root() {
 yield all([
     takeLatest(EntityTypes.POST , entitySagas.post),
-    takeLatest(EntityTypes.GET , entitySagas.get)
+    takeLatest(EntityTypes.GET , entitySagas.get),
+    takeLatest(EntityTypes.DELETE_METHOD,entitySagas.delete)  
 ])
 }

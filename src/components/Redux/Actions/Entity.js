@@ -8,7 +8,7 @@ const {Types , Creators}  = createActions({
     get:['key','data'],
     post:['key','data'],
     put:['key','data'],
-    delete:['key','data'],
+    deleteMethod:['key','data'],
 
     didGet:['key','data'],
     didPost:['key','data'],
@@ -160,6 +160,47 @@ export const removeEntity = (state,{key}) => {
         },
     });
 };
+export const deleteMethod = (state, {key,data})=>{
+    console.log("index",data.index)
+    let newData = [...data.todos]
+    console.log(newData)
+    let finalData = newData.filter((todo,index)=> index!== data.index)
+    console.log(finalData)
+    return state.merge({
+        byKey:{
+            ...state.byKey,
+            [key]:{
+                ...state.byKey[key],
+                loading:true,
+                deleteData: finalData,
+            }
+        }
+    })
+}
+export const didDelete = (state,{key ,data}) =>
+    state.merge({
+        byKey:{
+            ...state.byKey,
+            [key]:{
+                ...state.byKey[key],
+                loading:false,
+                didDelete:true,
+                deleteData:{...state.deleteData,result:data},
+            }
+        }
+    })
+export const catchDelete = (state,{key ,data}) =>
+    state.merge({
+        byKey:{
+            ...state.byKey,
+            [key]:{
+                ...state.byKey[key],
+                loading:false,
+                catchDelete:true,
+                deleteData:data
+            }
+        }
+    })
 /// Hookup Actions To Types
 export const reducer = createReducer(INITIAL_STATE , {
     [Types.GET]:get,
@@ -171,5 +212,8 @@ export const reducer = createReducer(INITIAL_STATE , {
     [Types.RESET_PROPS]:resetProps,
     [Types.DID_GET] : didGet,
     [Types.CATCH_GET] : catchGet,
+    [Types.DELETE_METHOD] : deleteMethod,
+    [Types.CATCH_DELETE]:catchDelete,
+    [Types.DID_DELETE]:didDelete
 });
 

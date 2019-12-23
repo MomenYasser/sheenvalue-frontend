@@ -66,5 +66,13 @@ export default {
     }
 
 
+    },
+    *delete({key , data}) {
+       
+        if(key === "Todos"){
+            yield put(EntityAction.didDelete(key ,{result:"successfully deleted"} ))
+        }else {
+            yield put(EntityAction.catchDelete(key,{result:"something went wrong"}))
+        }
     }
 }

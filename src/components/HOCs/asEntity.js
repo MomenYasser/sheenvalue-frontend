@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from 'react-redux';
 import get from 'lodash/get';
-import EntityActions, {catchGet} from '../Redux/Actions/Entity'
+import EntityActions, {catchGet, catchDelete, EntityTypes} from '../Redux/Actions/Entity'
 import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
 
 export default function (configure = {}) {
@@ -20,7 +20,8 @@ const {storeKey,keepEntity} = configure;
             const state = get(this,`props.entity.byKey.${storeKey}`,{});
             const actions = {
                 get:this.get,
-                post:this.post
+                post:this.post,
+                deleteMethod:this.deleteMethod
             };
             return {
                 ...state,
@@ -33,6 +34,9 @@ const {storeKey,keepEntity} = configure;
         post = (...rest) =>{
             this.props.post(storeKey,...rest)
         };
+        deleteMethod = (...rest) =>{
+            this.props.deleteMethod(storeKey,...rest)
+        }
         resetProps = (...rest) => {
             this.props.resetProps(storeKey,...rest)
         };
@@ -48,6 +52,7 @@ const {storeKey,keepEntity} = configure;
                 deleteData,
                 catchGet,
                 catchPost,
+                catchDelete
             } = this.store;
             if(didGet){
                 console.log("rewwdqew")
@@ -69,6 +74,14 @@ const {storeKey,keepEntity} = configure;
             if(didPost){
                 this.resetProps(['didPost','postData']);
                 this.component.current.entityDidPost(postData);
+            }
+            if(didDelete){
+                this.resetProps(['didDelete','deleteData'])
+                this.component.current.entityDidDelete(deleteData)
+            }
+            if(catchDelete){
+                this.resetProps(['catchDelete','deleteData'])
+                this.component.current.entityDidCatch(deleteData)
             }
         }
         componentWillUnmount() {
@@ -93,7 +106,8 @@ const {storeKey,keepEntity} = configure;
             get: (...rest) => dispatch(EntityActions.get(...rest)),
             register:(...rest) => dispatch(EntityActions.register(...rest)),
             removeEntity:(...rest) => dispatch(EntityActions.removeEntity(...rest)),
-            resetProps:(...rest) => dispatch(EntityActions.resetProps(...rest))
+            resetProps:(...rest) => dispatch(EntityActions.resetProps(...rest)),
+            deleteMethod:(...rest) => dispatch(EntityActions.deleteMethod(...rest))
 
         });
 

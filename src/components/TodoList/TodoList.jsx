@@ -36,19 +36,33 @@ class TodoList extends Component{
         let res = data.todo
         this.setState({todos: this.state.todos.concat(res)})
     }
+    entityDidDelete(data){
+        console.log(data.result)
+        alert(data.result.result)
+        // this.setState({todos:this.props.$store.deleteData})
+    }
     addTodo = (data) => {
 
         this.props.$store.post(data);
     }
+    deleteTask = (index) =>{
+        this.props.$store.deleteMethod({todos:this.state.todos,index})
+    }
     render(){
+        const stateData = this.state.todos;
+        let deleteData =this.state.todos
+        
         const todos = this.state.todos !== undefined?
+  
+        
         this.state.todos.map((task,index) => {
-            return <Task key={index} 
+            return <div key ={index} onClick = { (e) => this.deleteTask((e,index))}><Task key={index} 
                          index = {index}
                          name ={task.task_name }
+                      
                          descritpion = {task.task_description}/>
+                         </div>
         }):<p style={{textAlign:'center'}}>Loading...</p>;
-        const stateData = this.state.todos;
         
         return <div>
         <NewTask onSearch = {this.onSearch} addTodo={(stateData )=>{this.addTodo(stateData)}}/>
