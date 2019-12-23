@@ -26,17 +26,23 @@ class Router extends React.Component {
         const activeRoute = routes.find(route => route.path === path);
         const defaultRoute = routes.find(route => route.default);
 
-        if (activeRoute) {
-            if (
-                (activeRoute.validation && this.props.Loged)
-                || !activeRoute.validation) {
+        // if (activeRoute) {
+        //     if (
+        //         (activeRoute.validation && this.props.Loged)
+        //         || !activeRoute.validation) {
 
-                return this.setState({ activeRoute: activeRoute.component });
-                }else window.location.replace(defaultRoute.path);
+        //         return this.setState({ activeRoute: activeRoute.component });
+        //         }else window.location.replace(defaultRoute.path);
+        // } else {
+        //     // Handling default route
+        //     window.location.replace(defaultRoute.path);
+        // }
+        if (activeRoute) {
+            return this.setState({ activeRoute: activeRoute.component });
         } else {
             // Handling default route
             window.location.replace(defaultRoute.path);
-        }
+        }  
     }
 
     render() {
@@ -47,9 +53,10 @@ class Router extends React.Component {
         )
     }
 }
-const mapStateToProps = state => {
-    return {
-        Loged: state.Register.LOGED.loged
-    };
-};
-export default connect(mapStateToProps, null)(Router);
+// const mapStateToProps = state => {
+//     return {
+//         Loged: state.Register.LOGED.loged
+//     };
+// };
+// export default connect(mapStateToProps, null)(Router);
+export default Router

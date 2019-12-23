@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import "./Header.css";
 import Router from "../Router"
-import { connect } from "react-redux";
-import { logedout } from "../../Redux/Actions/Register";
+// import { connect } from "react-redux";
+// import { logedout } from "../../Redux/Actions/Register";
 
 class Header extends Component {
   handelClic = path => e => {
     e.preventDefault();
-    Router.go(path);
+    // Router.go(path);
   };
   logout=(e)=>{
     e.preventDefault();
-    this.props.logedout()
+    // this.props.logedout()
+    localStorage.removeItem("Token")
+    this.props.setAuth(false)
     Router.go("/login");
   }
 
@@ -20,7 +22,7 @@ class Header extends Component {
       <div className="headerDiv">
         <ul>
         {
-          this.props.loged ?
+          this.props.isAuth ?
            <li>
                 <a className="linkButton" 
                     href="#" 
@@ -46,14 +48,15 @@ class Header extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    loged: state.Register.LOGED.loged
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     loged: state.Register.LOGED.loged
+//   };
+// };
 
-const mapDispatchToProprs = {
-  logedout: logedout,
-};
+// const mapDispatchToProprs = {
+//   logedout: logedout,
+// };
 
-export default connect(mapStateToProps, mapDispatchToProprs)(Header);
+// export default connect(mapStateToProps, mapDispatchToProprs)(Header);
+export default Header

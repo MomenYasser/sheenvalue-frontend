@@ -1,43 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Login from "./Screens/Login/Login";
 import Header from "./components/Header/Header";
 import SingUp from "./Screens/SingUp/SingUp";
-import Router from "./components/Router"
+import Router from "./components/Router";
 import Home from "./Screens/Home";
-import MobexImp from "./Mobex/MobexImp";
 
 function App() {
-  
+  const [isAuth, setAuth] = useState(false);
   return (
     <div className="App">
-      <MobexImp></MobexImp>
-      {/* <Header
+      <Header
+        isAuth={isAuth}
+        setAuth={setAuth}
         childrens={[
-          { name: "sing in",rout:'/login'},
-          { name: "sing up",rout:'/signup'}
+          { name: "sing in", rout: "/login" },
+          { name: "sing up", rout: "/signup" }
         ]}
       ></Header>
       <Router
         routes={[
           {
-            path: '/login',
+            path: "/login",
             component: <Login />,
-            default: true,
-
+            default: true
           },
           {
-            path: '/signup',
-            component: <SingUp />,
+            path: "/signup",
+            component: <SingUp  />
           },
           {
-            path:'/home',
-            component:<Home/>,
-            validation:true
+            path: "/home",
+            component: <Home/>,
+            validation: true
           }
         ]}
       />
-      <div id="component"></div> */}
+      <div id="component"></div>
     </div>
   );
 }

@@ -4,11 +4,12 @@ const Todo = ({
   task_name,
   task_description,
   removeHandelr,
-  valueChange
+  valueChange,
+  index
 }) => {
   const onChange =(e)=>{
     e.preventDefault();
-    valueChange(e.target.value)
+    valueChange({value:e.target.value,index:index})
   }
   return (
     <>

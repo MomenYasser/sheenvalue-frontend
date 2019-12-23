@@ -2,8 +2,9 @@ import React from "react";
 import Logic from "../../components/Form/FormObjectLogic";
 import { minLength, isEmail, isRequired } from "../../Services/Validators";
 import Router from "../../components/Router";
-import { connect } from "react-redux";
-import { logedin } from "../../Redux/Actions/Register";
+import asEntity from '../../Hocs/asEntity';
+// import { connect } from "react-redux";
+// import { logedin } from "../../Redux/Actions/Register";
 
 class Login extends Logic {
   constructor(props) {
@@ -26,13 +27,21 @@ class Login extends Logic {
   submit = e => {
     e.preventDefault();
     const valid = this.validate();
-    if (valid) {
-      const token = this.getTokens().then(()=>{
-        this.props.logedin(token)
-        Router.go("/home")
-      });
+    if(valid){
+      this.props.$store.post(this.formValues);
     }
   };
+  entityDidPost(data) {
+    console.log('entityDidPost', data);
+    localStorage.setItem("Token",data.token)
+    // this.props.setAuth(true)
+    Router.go("/home");
+
+}
+
+  entityDidCatch(method, { errors }) {
+      alert("Somethin went wrong");
+  }
 
   render() {
     const { TextField } = this;
@@ -51,14 +60,15 @@ class Login extends Logic {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    LOGED: state.Register.LOGED
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     LOGED: state.Register.LOGED
+//   };
+// };
 
-const mapDispatchToProprs = {
-  logedin: logedin,
-};
+// const mapDispatchToProprs = {
+//   logedin: logedin,
+// };
 
-export default connect(mapStateToProps, mapDispatchToProprs)(Login);
+// export default connect(mapStateToProps, mapDispatchToProprs)(Login);
+export default asEntity({ storeKey: "Login" })(Login);

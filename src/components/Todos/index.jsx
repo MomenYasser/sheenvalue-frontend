@@ -1,10 +1,19 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { removeTodo, addTodo,valueChange } from "../../Redux/Actions/todo";
+// import { connect } from "react-redux";
+// import { removeTodo, addTodo,valueChange } from "../../Redux/Actions/todo";
 import Todo from "./Todo";
 import AddTodo from "./AddTodo";
 
 class Todos extends Component {
+   removeTodo=(data)=>{
+    this.props.$store.delete(data);
+   }
+   addTodo=(data)=>{
+    this.props.$store.post(data);
+   }
+   valueChange=(data)=>{
+     this.props.$store.put(data)
+   }
   render() {
     return (
       <React.Fragment>
@@ -13,28 +22,31 @@ class Todos extends Component {
             return (
               <Todo
                 key={index+toString(todo)}
+                index={index}
                 {...todo}
-                removeHandelr={() => this.props.removeTodo(index)}
-                valueChange={this.props.valueChange.bind(this,index)}
+                removeHandelr={() => this.removeTodo(index)}
+                valueChange={this.valueChange}
               />
             );
           })}
         </div>
-        <AddTodo  addHandelr={this.props.addTodo}></AddTodo>
+        <AddTodo  addHandelr={this.addTodo}></AddTodo>
       </React.Fragment>
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    todos: state.todo.todos
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     todos: state.todo.todos
+//   };
+// };
 
-const mapDispatchToProprs = {
-  removeTodo: removeTodo,
-  addTodo: addTodo,
-  valueChange: valueChange,
-};
+// const mapDispatchToProprs = {
+//   removeTodo: removeTodo,
+//   addTodo: addTodo,
+//   valueChange: valueChange,
+// };
 
-export default connect(mapStateToProps, mapDispatchToProprs)(Todos);
+// export default connect(mapStateToProps, mapDispatchToProprs)(Todos);
+export default  Todos;
+
