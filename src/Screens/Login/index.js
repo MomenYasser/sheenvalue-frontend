@@ -29,15 +29,26 @@ class LoginScreen extends FormBuilder {
 
     onSubmit = e => {
         e.preventDefault();
-
+        
         if (this.isFormValid) {
             // Do something
-            this.login();
+          
+            this.props.$store.post(this.formValues);
+           
             
         } else {
            this.showFormErrors(); 
         }
     }
+    entityDidPost = (data)  => {
+        localStorage.setItem('token',data.token);
+       this.login();
+    }
+
+    entityDidCatch = ( moudle , errors ) => {
+        console.log(moudle,errors[0]);
+    }
+
 
     render() {
         const { TextField } = this;        
