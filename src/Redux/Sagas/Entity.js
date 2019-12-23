@@ -6,7 +6,8 @@ export default {
   *get({ key, data }) {
     if (key === "todos") {
       const response = {
-        ok: true, data: {
+        ok: true,
+         data: {
           todos: [
             {
               task_name: "name",

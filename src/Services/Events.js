@@ -1,4 +1,4 @@
-class Events {
+class  Events {
     _listeners = {};
 
     on(event, action) {

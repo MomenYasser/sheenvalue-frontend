@@ -202,7 +202,6 @@ export const removeEntity = (state, {key}) =>
 				if (name !== key) {
 					result[name] = entity;
 				}
-				
 				return result;
 			}, {}),
 		},

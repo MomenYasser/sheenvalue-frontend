@@ -26,6 +26,7 @@ export default function(configs = {}) {
           put: this.put,
           delete: this.delete,
         };
+
         return {
           ...state,
           ...actions

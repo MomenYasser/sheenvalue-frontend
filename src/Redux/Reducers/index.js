@@ -3,5 +3,5 @@ import todo from "./Todo";
 
 export default {
   entity,
-  todo,
+  // todo,
 };
