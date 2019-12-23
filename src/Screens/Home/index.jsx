@@ -30,8 +30,10 @@ class Home extends Component {
             todos: this.state.todos.filter(todo => todo.id !== data.id)})
     }
     entityDidPut(data){
-     const todos=[...this.state.todos];
-     todos[data.index]=data.value;
+     let todos=[...this.state.todos];
+    //  todos[data.index].task_name=data.value;
+    todos[data.index]={...todos[data.index],task_name:data.value}
+    console.log(todos)
      this.setState({todos:todos})
     }
     render() { 

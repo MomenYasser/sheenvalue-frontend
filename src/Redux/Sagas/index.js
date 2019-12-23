@@ -1,4 +1,4 @@
-import { takeLatest, all } from "redux-saga/effects";
+import { takeLatest,takeEvery, all } from "redux-saga/effects";
 
 /* ------------- Types ------------- */
 import { EntityTypes } from "../Actions/Entity";
@@ -12,7 +12,7 @@ export default function* root() {
 	yield all([
 		takeLatest(EntityTypes.GET, entitySagas.get),
 		takeLatest(EntityTypes.POST, entitySagas.post),
-		takeLatest(EntityTypes.PUT, entitySagas.put),
+		takeEvery(EntityTypes.PUT, entitySagas.put),
 		takeLatest(EntityTypes.DELETE, entitySagas.delete),
 	]);
 }

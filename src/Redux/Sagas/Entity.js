@@ -49,7 +49,7 @@ export default {
   *put({ key, data }) { 
     if (key === "todos") {
       const response = { ok: true }
-      yield delay(200);
+      yield delay(100);
       if (response.ok) {
         yield put(EntityActions.didPut(key,data));
       } else {
