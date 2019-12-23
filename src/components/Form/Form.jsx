@@ -43,7 +43,7 @@ class Form extends Component {
             if (!item.valid) {
                 errors.push(item.message);
             }
-        })
+        });
 
         result[key] = { ...form[key], errors };
 

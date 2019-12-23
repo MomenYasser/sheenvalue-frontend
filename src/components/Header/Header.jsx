@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Header.css";
 import {connect} from 'react-redux'
-import {loggedOut} from '../store/actions/accountAction'
+import {loggedOut} from '../myStore/actions/accountAction'
 import Router from '../Router/Router'
 class Header extends Component {
   navigateTo = path => e => {
@@ -35,4 +35,4 @@ const mapStateToProps = state =>{
     isLoggedIn: state.account.isLoggedIn
   }
 }
-export default connect(mapStateToProps,{loggedOut})(Header);
+export default connect(null,{loggedOut})(Header);

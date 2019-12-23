@@ -1,5 +1,5 @@
 import React,{ Component } from "react";
-@ammarCounter
+// @ammarCounter
 class Counter extends Component{
     state = {
         x:5

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import Form from '../Form'
 import {connect} from 'react-redux'
-import {loggedIn} from '../../store/actions/accountAction'
+import {loggedIn} from '../../myStore/actions/accountAction'
 import {isRequired,minLength, isEmail} from '../../Services/Validators'
 import Router from '../../Router/Router'
+import asEntity from "../../HOCs/asEntity";
 class SignUp extends Form {
     constructor(props) {
         super(props);
@@ -33,9 +34,10 @@ class SignUp extends Form {
 
         if (this.isFormValid) {
             // Do something
-            this.props.loggedIn()
-            console.log(this.formValues)
-            Router.go('/todo-list')
+            // this.props.loggedIn()
+            // console.log(this.formValues)
+            // Router.go('/todo-list')
+            this.props.$store.post(this.formValues)
         } else {
            this.showFormErrors(); 
         }
@@ -72,4 +74,4 @@ const mapStateToProps = state =>{
       isLoggedIn: state.account.isLoggedIn
     }
   }
-export default connect(mapStateToProps,{loggedIn})( SignUp );
+export default asEntity({storeKey:'SignUp'})( SignUp );

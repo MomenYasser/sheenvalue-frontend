@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {getTodos , search} from '../store/actions/todoAction'
+import {getTodos , search} from '../myStore/actions/todoAction'
 import Task from './Task/Task'
 import NewTask from './New Task/NewTask'
+import asEntity from "../HOCs/asEntity";
 class TodoList extends Component{
     state = {
         keyword : ''
-    }
+    };
 
     componentDidMount() {
-       this.props.getTodos()
+       // this.props.getTodos()
+        this.props.$store.get()
     }
     get list(){
-        const {keyword} = this.state
+        const {keyword} = this.state;
         if (this.props.searchKeyword){
             return this.props.filtered
         }
@@ -22,20 +24,34 @@ class TodoList extends Component{
 
         this.props.search(keyword)
         // this.setState({keyword})
+    };
+    entityDidGet(data){
+        this.setState({todos:data.todos})
+    }
+    entityDidCatch(data){
+        alert(data)
+    }
+    entityDidPost(data){
+        console.log(data)
+        let res = data.todo
+        this.setState({todos: this.state.todos.concat(res)})
+    }
+    addTodo = (data) => {
+
+        this.props.$store.post(data);
     }
     render(){
-        const viewTodos = this.props.isSearch ? this.props.filtered : this.props.todos
-        const todos = 
-         this.list.map((task,index) => {
+        const todos = this.state.todos !== undefined?
+        this.state.todos.map((task,index) => {
             return <Task key={index} 
                          index = {index}
-                         name ={task.task_name}
+                         name ={task.task_name }
                          descritpion = {task.task_description}/>
-        })
-
+        }):<p style={{textAlign:'center'}}>Loading...</p>;
+        const stateData = this.state.todos;
         
         return <div>
-        <NewTask onSearch = {this.onSearch}/>
+        <NewTask onSearch = {this.onSearch} addTodo={(stateData )=>{this.addTodo(stateData)}}/>
 
           {todos}
         </div>
@@ -47,6 +63,6 @@ const mapStateToProps = state =>({
     isSearch : state.todo.isSearch,
     filtered : state.todo.filtered,
     searchKeyword: state.todo.searchKeyword
-})
+});
 
-export default connect(mapStateToProps,{getTodos,search} )(TodoList);
+export default asEntity({storeKey:'Todos'})(TodoList);

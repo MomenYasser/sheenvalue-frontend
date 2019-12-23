@@ -8,8 +8,13 @@ import SignUp from './components/Form/SignUp/SignUp';
 import Router from './components/Router/Router';
 import TodoList from './components/TodoList/TodoList';
 import Counter from './components/Counter/Counter';
+import CreateStore from "./components/Redux";
+import {Provider} from "react-redux";
+const store = CreateStore();
+
 function App() {
   return (
+      <Provider store={store}>
     <div>
       <Header/>
       <Router
@@ -33,7 +38,7 @@ function App() {
                     },
               ]}/>
     </div>
-    
+      </Provider>
   );
 }
 

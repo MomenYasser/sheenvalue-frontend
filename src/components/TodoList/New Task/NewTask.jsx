@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { filterTodos, addTodo } from "../../store/actions/todoAction";
+import { filterTodos } from "../../myStore/actions/todoAction";
 import "./NewTask.css";
 import Form from "../../Form/Form";
 class NewTask extends Form {
   state = {
-    inputValue: { title: "", desc: "" }
+    inputValue: { task_name: "", task_description: "" }
   };
   onChangeTitle = e => {
     e.preventDefault();
-    this.setState({ inputValue:{...this.state.inputValue, title:e.target.value } });
-    this.props.onSearch(e.target.value);
+    this.setState({ inputValue:{...this.state.inputValue, task_name:e.target.value } });
+    // this.props.onSearch(e.target.value);
   };
   onSubmit = e => {
     e.preventDefault();
@@ -18,7 +18,7 @@ class NewTask extends Form {
   };
   onChangeDesc = e => {
     e.preventDefault();
-    this.setState({ inputValue:{...this.state.inputValue, desc:e.target.value } });
+    this.setState({ inputValue:{...this.state.inputValue, task_description:e.target.value } });
 
   };
   render() {
@@ -48,4 +48,4 @@ const mapStateToProps = state => {
     todos: state.todos
   };
 };
-export default connect(mapStateToProps, { filterTodos, addTodo })(NewTask);
+export default connect(mapStateToProps, { filterTodos })(NewTask);
